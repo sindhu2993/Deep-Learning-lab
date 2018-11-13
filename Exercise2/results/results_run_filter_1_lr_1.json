@@ -1,0 +1,1 @@
+{"batch_size": 64, "num_filters": 16, "test_error": 0.044955432415008545, "lr": 0.1, "filter_size": 1}
