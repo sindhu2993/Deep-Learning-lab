@@ -86,10 +86,10 @@ if __name__ == "__main__":
     num_actions = 2
     hidden = 300
     lr = 1e-3
-    discount_factor = 0.8
-    epsilon= 0.2
+    discount_factor = 0.95
+    epsilon= 0.5
     epsilon_decay = 0.99
-    epsilon_min = 0.03
+    epsilon_min = 0.05
     game = "cartpole"
     exploration = "greedy"
     batch_size = 32
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
     Q_target = TargetNetwork(state_dim=state_dim, num_actions=num_actions, hidden=300, lr=1e-3)
 
-    agent = DQNAgent(Q, Q_target, num_actions, game=game, exploration=exploration, discount_factor=0.8, batch_size=32, epsilon=0.2, epsilon_decay=0.99, epsilon_min= 0.03)
+    agent = DQNAgent(Q, Q_target, num_actions, game=game, exploration=exploration, discount_factor=0.95, batch_size=32, epsilon=0.5, epsilon_decay=0.99, epsilon_min= 0.05)
 
     train_online(env, agent, 1600)
 

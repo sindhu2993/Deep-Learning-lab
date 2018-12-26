@@ -89,3 +89,64 @@ class TargetNetwork(NeuralNetwork):
     def update(self, sess):
         for op in self._associate:
           sess.run(op)
+
+'''
+
+class CNN():
+    def __init__(self, state_dim, num_actions, history_length=0 hidden=20, lr=1e-4):
+        self._build_model(state_dim, num_actions, history_length, hidden, lr)
+
+    def _build_model(self, state_dim, num_actions, history_length; hidden, lr):
+
+        self.states_ = tf.placeholder(tf.float32, shape=[None, *state_dim, history_length+1])
+        self.actions_ = tf.placeholder(tf.int32, shape=[None])                  # Integer id of which action was selected
+        self.targets_ = tf.placeholder(tf.float32,  shape=[None])               # The TD target value
+
+        # network
+
+        #layer 1
+        self.conv1 = tf.layers.conv2d(self.states_, filters=32, kernel_size= [4, 4], strides = 2, padding='same', activation = tf.nn.relu)
+        #layer 2
+        self.conv2 = tf.layers.conv2d(self.conv1, filters=64, kernel_size= [3, 3], strides = 2, padding='same', activation = tf.nn.relu)
+        #layer 3
+        self.conv3 = tf.layers.conv2d(self.conv2, filters=64, kernel_size= [3, 3], strides = 2, padding='same', activation = tf.nn.relu)
+        #layer 4
+        self.conv4 = tf.layers.conv2d(self.conv3, filters=64, kernel_size= [3, 3], strides = 1, padding='same', activation = tf.nn.relu)
+
+        self.layer_flat = tf.contrib.layers.flatten(self.conv4)
+        
+        self.layer_fc1 = tf.layers.dense(inputs=self.layer_flat, units=512, activation=tf.nn.relu)
+
+        shape = pool3.get_shape().as_list()
+        dim = np.prod(shape[1:])
+        flat = tf.reshape(pool3, [-1, dim])
+
+        # network
+        fc1 = tf.layers.dense(flat, 512, tf.nn.relu)
+        fc2 = tf.layers.dense(fc1, 128, tf.nn.relu)
+
+
+
+        self.logits = tf.layers.dense(inputs=self.layer_fc6, units=3)
+
+
+        #------------------------------------------------------------------------
+        #TODO:: finish this network. It will not run! Correct the layers above.
+        #------------------------------------------------------------------------
+
+        
+        self.predictions = tf.layers.dense(fc2, num_actions)
+
+        # Get the predictions for the chosen actions only
+        batch_size = tf.shape(self.states_)[0]
+        gather_indices = tf.range(batch_size) * tf.shape(self.predictions)[1] + self.actions_
+        self.action_predictions = tf.gather(tf.reshape(self.predictions, [-1]), gather_indices)
+
+        # Calculate the loss
+        self.losses = tf.squared_difference(self.targets_, self.action_predictions)
+        self.loss = tf.reduce_mean(self.losses)
+
+        # Optimizer Parameters from original paper
+        self.optimizer = tf.train.AdamOptimizer(lr)
+        self.train_op = self.optimizer.minimize(self.loss)
+'''

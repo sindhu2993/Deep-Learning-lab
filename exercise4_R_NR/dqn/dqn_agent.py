@@ -65,7 +65,7 @@ class DQNAgent:
         td_target =  batch_rewards
         #td_target += self.discount_factor * np.amax(self.Q_target.predict(self.sess, batch_next_state)) #use this or think of something better
 
-        best_action = np.argmax(self.Q.predict(self.sess, batch_next_state)[np.logical_not(batch_done)], 1)
+        best_action = np.amax(self.Q.predict(self.sess, batch_next_state)[np.logical_not(batch_done)], 1)
         td_target[np.logical_not(batch_done)] += self.discount_factor * self.Q_target.predict(self.sess, batch_next_state)[np.logical_not(batch_done), best_action]
 
         self.Q.update(self.sess, batch_state, batch_action, td_target)
