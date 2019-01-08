@@ -84,7 +84,7 @@ def id_to_action(labels_id):
     labels_action[labels_id==RIGHT] = [1.0, 0.0, 0.0]
     labels_action[labels_id==STRAIGHT] = [0.0, 0.0, 0.0]  #accelerate in this case also
     labels_action[labels_id==ACCELERATE] =[0.0, 1.0, 0.0]
-    labels_action[labels_id==BRAKE] = [0.0, 0.0, 0.2]
+    labels_action[labels_id==BRAKE] = [0.0, 0.0, 0.8]
    
    # print('shape of labels_action:::::',labels_action.shape)
    # print ('final a_c matrix::::::::',labels_action)
